@@ -23,29 +23,30 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
 
 
     @IBAction func btnCaptureImageFromCamera(_ sender: UIButton) {
-        if (UIImagePickerController.isSourceTypeAvailable(.camera)) {//카메라의 사용 가능 여부를 확인, 가능한경우 아래내용수행
-            flagImageSave = true
+        if (UIImagePickerController.isSourceTypeAvailable(.camera)) { //카메라의 사용 가능 여부를 확인, 가능한경우 아래내용수행
+            flagImageSave = true //카메라 촬영후 저장할 것이기 때문에 이미지 저장을 허용
+            imagePicker.delegate = self // 이미지 피커의 델리게이트를 self로 설정합니다
+            imagePicker.sourceType = .camera //이미지 피커의 소스타입을 camera로 설정합니다
+            imagePicker.mediaTypes = [kUTTypeImage as String] //미디어 타입은 kUTTypeImage로 설정
+            imagePicker.allowsEditing = false //편집은 허용하지 않음
             
-            imagePicker.delegate = self
-            imagePicker.sourceType = .camera
-            imagePicker.mediaTypes = [kUTTypeImage as String]
-            imagePicker.allowsEditing = false
-            
-            present(imagePicker, animated: true, completion: nil)
+            present(imagePicker, animated: true, completion: nil) //현재뷰 컨트롤러를 imagePicker로 대체 즉 뷰에 imagepicker가 보이게
         }
         else {
-            myAlert("Camera inaccessable", message: "Application cannot access the camera.")
+            myAlert("Camera inaccessable", message: "Application cannot access the camera.") //카메라를 사용할수 없을때는 경고창표시
         }
     }
     
     @IBAction func btnLoadImageFromCamera(_ sender: UIButton) {
-        if (UIImagePickerController.isSourceTypeAvailable(.photoLibrary)) {
-            flagImageSave = false
+        if (UIImagePickerController.isSourceTypeAvailable(.photoLibrary)) { //사진첩의 사용 여부를 확인, 가능한 경우 아래내용수행
+            flagImageSave = false //카메라 촬영후 저장이 아니고 불러오기떄문에 false
             
-            imagePicker.delegate = self
-            imagePicker.sourceType = .photoLibrary
-            imagePicker.mediaTypes = [kUTTypeImage as String]
-            imagePicker.allowsEditing = true
+            imagePicker.delegate = self //이미지 피커의 델리게이트를 self로 설정합니다
+            imagePicker.sourceType = .photoLibrary //이미지 피커의 소스타입을 photoLibrary로 설정합니다
+            imagePicker.mediaTypes = [kUTTypeImage as String] //미디어 타입은 kUTTypeImage로 설정
+            imagePicker.allowsEditing = true //편집은 허용함
+            
+            present(imagePicker, animated: true, completion: nil) //현재뷰 컨트롤러를 imagePicker로 대체 즉 뷰에 imagepicker가 보이게
         }
         else {
             myAlert("Photo album inaccessable", message: "UIApplication cannot aceess the photo album")
@@ -58,31 +59,31 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     let action = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
     
     @IBAction func btnRecordVideoFromCamera(_ sender: UIButton) {
-        if (UIImagePickerController.isSourceTypeAvailable(.camera)) {
-            flagImageSave = true
+        if (UIImagePickerController.isSourceTypeAvailable(.camera)) { //카메라의 사용 가는 여부 확인, 가능한 경우 아래내용수행
+            flagImageSave = true //카메라 촬영후 저장할 것이기 때문에 이미지 저장을 허용
             
-            imagePicker.delegate = self
-            imagePicker.sourceType = .camera
-            imagePicker.mediaTypes = [kUTTypeMovie as String]
-            imagePicker.allowsEditing = false
+            imagePicker.delegate = self // 이미지 피커의 델리게이트를 self로 설정합니다
+            imagePicker.sourceType = .camera //이미지 피커의 소스타입을 camera로 설정합니다
+            imagePicker.mediaTypes = [kUTTypeMovie as String] //미디어 타입은kUTTypeMovie로 설정
+            imagePicker.allowsEditing = false //편집은 허용함
             
-            present(imagePicker, animated: true, completion: nil)
+            present(imagePicker, animated: true, completion: nil) //현재뷰 컨트롤러를 imagePicker로 대체 즉 뷰에 imagepicker가 보이게
         }
         else {
-            myAlert("Camera inccessable", message: "Application cannot access the camera.")
+            myAlert("Camera inccessable", message: "Application cannot access the camera.") //카메라를 사용할수 없을때는 경고창표시
         }
     }
     
     @IBAction func btnLoadVideoFromCamera(_ sender: UIButton) {
-        if(UIImagePickerController.isSourceTypeAvailable(.photoLibrary)) {
-            flagImageSave = false
+        if(UIImagePickerController.isSourceTypeAvailable(.photoLibrary)) { //사진첩의 사용 여부를 확인, 가능한 경우 아래내용수행
+            flagImageSave = false //카메라 촬영후 저장이 아니고 불러오기떄문에 false
             
             imagePicker.delegate = self
-            imagePicker.sourceType = .photoLibrary
-            imagePicker.mediaTypes = [kUTTypeMovie as String]
-            imagePicker.allowsEditing = false
+            imagePicker.sourceType = .photoLibrary //이미지 피커의 소스타입을 photoLibrary로 설정합니다
+            imagePicker.mediaTypes = [kUTTypeMovie as String] //kUTTypeMovie
+            imagePicker.allowsEditing = false //비디오편집? false
             
-            present(imagePicker, animated: true, completion: nil)
+            present(imagePicker, animated: true, completion: nil) //현재뷰 컨트롤러를 imagePicker로 대체 즉 뷰에 imagepicker가 보이게
         }
         else {
             myAlert("Photo album inccessable", message: "Application cannot access the photo album.")
